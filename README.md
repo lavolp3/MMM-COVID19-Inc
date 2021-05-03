@@ -13,8 +13,8 @@ Uses data from RKI.
     position: "top_right",   // see mirror settings for options
     header: "Inzidenzen",
     config: {
-        width: 350,
-        height: 250,
+        width: 400,
+        height: 300,
         days: 7,
         regions: ['Berlin', 'Hamburg'],
         chartType: "line",  //use "line" or "bar"
