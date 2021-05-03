@@ -13,8 +13,9 @@ module.exports = NodeHelper.create({
     socketNotificationReceived: function(notification, payload) {
         this.log("Socket Notification received. Title: "+notification+", Payload: "+payload);
         if (notification == "INC_REQUEST") {
-            var url = payload.apiBase + payload.days;
-            console.log(url);
+            var apiBase = "https://api.corona-zahlen.org/districts/history/incidence/";
+            var url = apiBase + payload.days;
+            this.log(url);
             this.getData(url);
         }
     },
@@ -23,11 +24,11 @@ module.exports = NodeHelper.create({
         var self = this;
         request(url, function (error, response, body) {
             if (error) throw new Error(error);
-            console.log(body);
+            this.log(body);
             self.sendSocketNotification("INC_DATA", JSON.parse(body));
         });
     },
-        
+
     log: function (msg) {
         if (this.config && this.config.debug) {
             console.log(this.name + ": ", (msg));

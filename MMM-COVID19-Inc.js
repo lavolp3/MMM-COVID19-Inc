@@ -7,15 +7,13 @@
 Module.register("MMM-COVID19-Inc",{
     // Default module config.
     defaults: {
-        region: '05170',
-        regions: ['Wesel', 'Bentheim', 'Dortmund'],
+        regions: ['Berlin', 'Hamburg'],
         colors: ['#ade6bb', '#add8e6', '#e6add8', '#e6bbad'],
-        width: 500,
-        height: 300,
+        width: 350,
+        height: 200,
         days: 7,
         showMap: true,
         mapWidth: 250,
-        apiBase: "https://api.corona-zahlen.org/districts/history/incidence/",
         updateInterval: 10 * 60 * 1000,
         chartType: 'line',
         debug: true

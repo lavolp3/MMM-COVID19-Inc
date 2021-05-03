@@ -1,6 +1,6 @@
 # MMM-COVID19-Inc
-A <a href="https://github.com/MichMich/MagicMirror">MagicMirror</a> module showing last days COVID19 incidence rates.
-Uses data from RKI.
+A <a href="https://github.com/MichMich/MagicMirror">MagicMirror</a> module showing last days COVID19 incidence rates.  
+Uses data from RKI.  
 **Only available for Germany**
 
 ## Installation
@@ -10,7 +10,7 @@ Uses data from RKI.
 ```
 {
     module: "MMM-COVID19-Inc",
-    position: "top_right",   // see mirror setting for options
+    position: "top_right",   // see mirror settings for options
     header: "Inzidenzen",
     config: {
         width: 350,
