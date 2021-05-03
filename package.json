@@ -1,0 +1,22 @@
+{
+  "name": "mmm-buienalarm",
+  "version": "1.0.0",
+  "description": "A <a href=\"https://github.com/MichMich/MagicMirror\">MagicMirror</a> module forecasting rain in the Netherlands and western Germany.",
+  "main": "MMM-Buienalarm.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lavolp3/MMM-Buienalarm.git"
+  },
+  "author": "Dirk Kovert",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/lavolp3/MMM-Buienalarm/issues"
+  },
+  "homepage": "https://github.com/lavolp3/MMM-Buienalarm#readme",
+  "dependencies": {
+    "highcharts": "^8.2.2"
+  }
+}
