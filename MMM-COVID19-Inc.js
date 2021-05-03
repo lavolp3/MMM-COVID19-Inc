@@ -157,7 +157,9 @@ Module.register("MMM-COVID19-Inc",{
             },
             xAxis: {
                 type: 'datetime',
-                //dateTimeLabelFormats: '%D/%M',
+                dateTimeLabelFormats: {
+                    day: '%d.%m.'
+                },
                 //tickInterval: 1000 * 60 * 60 * 24,
                 labels: {
                     overflow: 'justify',

@@ -39,9 +39,9 @@ Uses data from RKI.
 
 
 ## Screenshot
-![Screenshot](/rainImage.PNG?raw=true "Incidence rates")
+![Incidence rates Screenshot](covid19-inc-sample.png?raw=true)
 
 
-## Notes
-Data provided by <a href="https://www.climacell.co/">climacell</a> and <a href="https://morgenwirdes.de/api/">https://morgenwirdes.de</a>
-
+## Source
+Data provided by <a href="https://api.corona-zahlen.org/">api.corona-zahlen.org</a>, provided by <a href="https://marlon-lueckert.de/">Marlon Lückert</a>  
+Thanks Marlon!
