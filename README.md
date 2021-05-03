@@ -16,7 +16,7 @@ Uses data from RKI.
         width: 400,
         height: 300,
         days: 7,
-        regions: ['Berlin', 'Hamburg'],
+        districts: ['Berlin', 'Hamburg'],
         chartType: "line",  //use "line" or "bar"
     }
 },
@@ -30,14 +30,14 @@ Uses data from RKI.
 |`width`|Width of the graph<br>**Type:** `Integer`<br>**Default:** `400`|
 |`height`|Height of the graph<br>**Type:** `Integer`<br>**Default:** `300`|
 |`days`|Number of days to show<br>**Type:** `Integer`<br>**Default:** `7`|
-|`regions`|Array with districts to show (see below!)<br>**Type:** `array`<br>**Values:**`['region1', 'region2', ...]`<br>**Default:**  `['Berlin', 'Hamburg']`|
+|`districts`|Array with districts to show (see below!)<br>**Type:** `array`<br>**Values:**`['region1', 'region2', ...]`<br>**Default:**  `['Berlin', 'Hamburg']`|
 |`chartType`|Type of chart<br>**Type:** `string`<br>**Values:** 'line', 'bar'<br>**Default:**  `"line"`|
 |`showYAxis`|Show Y-Axis of chart<br>**Type:** boolean<br>**Default:**  `false`|
 |`showMap`|Show heatmap of Germany<br>**Type:** `boolean`<br>**Default:**  `true`|
 |`debug`|Debug mode (increased console output)<br>**Type:** `boolean`<br>**Default:**  `false`|
 
 
-## Districts/Regions
+### Districts
 
 You can have the module search for districts (Landkreise) by just including the name of the district.    
 If it doesn't show on the graph, you probably haven't used the proper name of the district.  
