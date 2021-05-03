@@ -7,7 +7,7 @@
 Module.register("MMM-COVID19-Inc",{
     // Default module config.
     defaults: {
-        regions: ['Berlin', 'Hamburg'],
+        districts: ['Berlin', 'Hamburg'],
         colors: ['#ade6bb', '#add8e6', '#e6add8', '#e6bbad'],
         width: 400,
         height: 250,
@@ -62,7 +62,7 @@ Module.register("MMM-COVID19-Inc",{
         var regData = payload.data;
         for (region in regData) {
             //this.log("Checking " + regData[region].name);
-            this.config.regions.forEach((reqReg) => {
+            this.config.districts.forEach((reqReg) => {
                 if (regData[region].name.indexOf(reqReg) > -1) {
                     this.log("Hit! " + reqReg);
                     data[reqReg] = [];
