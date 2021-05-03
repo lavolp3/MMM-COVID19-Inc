@@ -32,6 +32,7 @@ Uses data from RKI.
 |`days`|Number of days to show<br>**Type:** `Integer`<br>**Default:** `7`|
 |`regions`|Array with communities to show<br>**Type:** `array`<br>**Values:**`['region1', 'region2']`<br>**Default:**  `['Berlin', 'Hamburg']`|
 |`chartType`|Type of chart<br>**Type:** `string`<br>**Values:** 'line', 'bar'<br>**Default:**  `"line"`|
+|`showYAxis`|Show Y-Axis of chart<br>**Type:** boolean<br>**Default:**  `false`|
 |`showMap`|Show heatmap of Germany<br>**Type:** `boolean`<br>**Default:**  `true`|
 |`debug`|Debug mode (increased console output)<br>**Type:** `boolean`<br>**Default:**  `false`|
 

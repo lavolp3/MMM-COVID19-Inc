@@ -11,10 +11,11 @@ module.exports = NodeHelper.create({
 
     // Override socketNotificationReceived method.
     socketNotificationReceived: function(notification, payload) {
+        this.config = payload;
         this.log("Socket Notification received. Title: "+notification+", Payload: "+payload);
         if (notification == "INC_REQUEST") {
             var apiBase = "https://api.corona-zahlen.org/districts/history/incidence/";
-            var url = apiBase + payload.days;
+            var url = apiBase + this.config.days;
             this.log(url);
             this.getData(url);
         }
@@ -24,7 +25,7 @@ module.exports = NodeHelper.create({
         var self = this;
         request(url, function (error, response, body) {
             if (error) throw new Error(error);
-            this.log(body);
+            self.log(body);
             self.sendSocketNotification("INC_DATA", JSON.parse(body));
         });
     },

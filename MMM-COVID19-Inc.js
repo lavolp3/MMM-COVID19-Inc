@@ -9,9 +9,10 @@ Module.register("MMM-COVID19-Inc",{
     defaults: {
         regions: ['Berlin', 'Hamburg'],
         colors: ['#ade6bb', '#add8e6', '#e6add8', '#e6bbad'],
-        width: 350,
-        height: 200,
+        width: 400,
+        height: 250,
         days: 7,
+        showYAxis: false,
         showMap: true,
         mapWidth: 250,
         updateInterval: 10 * 60 * 1000,
@@ -28,7 +29,6 @@ Module.register("MMM-COVID19-Inc",{
     getScripts: function() {
         return [
             'modules/MMM-COVID19-Inc/node_modules/highcharts/highstock.js',
-            'modules/MMM-COVID19-Inc/node_modules/highcharts/highcharts-more.js',
         ];
     },
 
@@ -51,7 +51,7 @@ Module.register("MMM-COVID19-Inc",{
     socketNotificationReceived: function(notification, payload) {
         this.log("Socket Notification received: " + notification);
         if (notification == "INC_DATA") {
-            //console.log(payload);
+            this.log(payload);
             this.processData(payload);
         }
     },
@@ -59,7 +59,6 @@ Module.register("MMM-COVID19-Inc",{
     
     processData: function(payload) {
         var data = {};
-        console.log(payload);
         var regData = payload.data;
         for (region in regData) {
             //this.log("Checking " + regData[region].name);
@@ -73,7 +72,7 @@ Module.register("MMM-COVID19-Inc",{
                 }
             });
         }
-        console.log(data);
+        this.log(data);
         this.drawChart(data);   
     },
 
@@ -126,13 +125,11 @@ Module.register("MMM-COVID19-Inc",{
             incData.push({
                 name: region,
                 data: data[region],
-                /*colors: this.getColors(data[region]),
-                colorByPoint: true,*/
                 color: this.config.colors[incData.length]
             });
         }
         
-        console.log(incData);
+        this.log(incData);
 
         Highcharts.chart("incGraph", {
             chart: {
@@ -143,7 +140,7 @@ Module.register("MMM-COVID19-Inc",{
                 plotBackgroundColor: '#000',
                 plotBorderWidth: '0',
                 style: {
-                    fontSize: "0.9em",
+                    fontSize: '0.9em',
                     color: "#f3f3f3",
                 }
             },
@@ -155,12 +152,6 @@ Module.register("MMM-COVID19-Inc",{
                 text: undefined,
                 //align: 'left'
             },
-            legend: {
-                itemStyle: {
-                    fontSize: "0.85em",
-                    color: "#f3f3f3",
-                }
-            },
             credits: {
                 enabled: false
             },
@@ -171,8 +162,8 @@ Module.register("MMM-COVID19-Inc",{
                 labels: {
                     overflow: 'justify',
                     style: {
-                        fontSize: "0.85em",
-                        color: "#f3f3f3",
+                        fontSize: "0.9em",
+                        color: "#eee",
                     }
                 },
             },
@@ -180,53 +171,39 @@ Module.register("MMM-COVID19-Inc",{
             // RAIN
             {
                 labels: {
-                    enabled: true,
+                    enabled: this.config.showYAxis,
                     style: {
-                        fontSize: "0.85m",
-                        color: "#f3f3f3",
+                        fontSize: "0.9em",
+                        color: "#eee",
                     }
                 },
                 title: {
                     text: null
                 },
-                min: 50,
                 startOnTick: false,
                 minorGridLineWidth: 0,
                 gridLineWidth: 0,
-                plotLines: [
+                plotBands: [
                     {
-                        value: 100,
-                        color: 'yellow',
-                        width: 2,
-                        zIndex: 5,
-                        label: {
-                            text: "100",
-                            style: {
-                                color: 'yellow'
-                            }
-                        }
+                        from: 0,
+                        to: 35,
+                        color: 'rgba(11,250,20,0.25)',
                     }, {
-                        value: 150,
-                        color: 'orange',
-                        width: 2,
-                        zIndex: 5,
-                        label: {
-                            text: "150",
-                            style: {
-                                color: 'orange'
-                            }
-                        }
+                        from: 35,
+                        to: 100,
+                        color: 'rgba(250,240,220,0.25)',
                     }, {
-                        value: 165,
-                        color: 'red',
-                        width: 2,
-                        zIndex: 5,
-                        label: {
-                            text: "165",
-                            style: {
-                                color: 'red',
-                            }
-                        }
+                        from: 100,
+                        to: 150,
+                        color: 'rgba(255,220,20,0.25)',
+                    }, {
+                        from: 150,
+                        to: 165,
+                        color: 'rgba(255,160,20,0.25)',
+                    }, {
+                        from: 165,
+                        to: 300,
+                        color: 'rgba(255,20,20,0.25)',
                     }
                 ]
             }
@@ -236,12 +213,14 @@ Module.register("MMM-COVID19-Inc",{
                     lineWidth: 3,
                     marker: {
                         enabled: true
+                        
                     },
                     dataLabels: {
                         enabled: true,
                         style: {
                             color: '#fafafa',
                             border: 'none',
+                            fontSize: "0.8em",
                         }
                     }
                 },
@@ -256,6 +235,7 @@ Module.register("MMM-COVID19-Inc",{
                         style: {
                             color: '#fafafa',
                             border: 'none',
+                            fontSize: "0.8em",
                         }
                     }
                 }
@@ -267,9 +247,10 @@ Module.register("MMM-COVID19-Inc",{
             legend: {
                 enabled: true,
                 align: 'center',
-                style: {
+                itemStyle: {
                     color: '#fcfcfc',
-                    fontSize: '0.75em'
+                    fontSize: '0.9em',
+                    fontWeight: 'normal'
                 }
             }
         });
