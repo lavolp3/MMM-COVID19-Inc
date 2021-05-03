@@ -39,7 +39,7 @@ Uses data from RKI.
 
 
 ## Screenshot
-![Incidence rates Screenshot](covid19-inc-sample.png?raw=true)
+![Incidence rates Screenshot](https://raw.githubusercontent.com/lavolp3/MMM-COVID19-Inc/main/covid19-inc-sample.png?raw=true)
 
 
 ## Source
