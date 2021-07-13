@@ -5,6 +5,15 @@
     margin-right: auto;
 }
 
+.MMM-COVID19-Inc table {
+    border-collapse: collapse;
+}
+
 .MMM-COVID19-Inc table tr {
     border-bottom: 1px solid #ccc;
 }
+
+.MMM-COVID19-Inc table td {
+    padding: 5px 0px;
+}
+
