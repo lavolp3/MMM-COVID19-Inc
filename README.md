@@ -24,22 +24,7 @@ Uses data from RKI.
     },
 },
 ```
-    defaults: {
-        chartType: 'line',
-        districts: ['Berlin', 'Hamburg'],
-        colors: ['#ade6bb', '#add8e6', '#e6add8', '#e6bbad'],
-        width: 400,
-        days: 7,
-        showYAxis: false,
-        showGraph: true,
-        chartHeight: 250,
-        showMap: true,
-        showRanks: true,
-        ranks: 5,
-        mapWidth: 250,
-        updateInterval: 10 * 60 * 1000,
-        debug: false
-    },
+
 
 ## Config options
 
