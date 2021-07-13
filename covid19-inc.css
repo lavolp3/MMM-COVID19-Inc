@@ -4,3 +4,7 @@
     margin-left: auto;
     margin-right: auto;
 }
+
+.MMM-COVID19-Inc table tr {
+    border-bottom: 1px solid #ccc;
+}

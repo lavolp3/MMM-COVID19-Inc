@@ -7,17 +7,20 @@
 Module.register("MMM-COVID19-Inc",{
     // Default module config.
     defaults: {
+        chartType: 'line',
         districts: ['Berlin', 'Hamburg'],
         colors: ['#ade6bb', '#add8e6', '#e6add8', '#e6bbad'],
         width: 400,
-        height: 250,
         days: 7,
         showYAxis: false,
+        showGraph: true,
+        chartHeight: 250,
         showMap: true,
+        showRanks: true,
+        ranks: 5,
         mapWidth: 250,
         updateInterval: 10 * 60 * 1000,
-        chartType: 'line',
-        debug: true
+        debug: false
     },
 
   // Override start method.
@@ -55,25 +58,41 @@ Module.register("MMM-COVID19-Inc",{
             this.processData(payload);
         }
     },
-    
-    
+
+
     processData: function(payload) {
+        this.log("Processing data...");
         var data = {};
         var regData = payload.data;
+        //this.log(regData);
+        this.ranking = [];
+        var self = this;
         for (region in regData) {
-            //this.log("Checking " + regData[region].name);
-            this.config.districts.forEach((reqReg) => {
-                if (regData[region].name.indexOf(reqReg) > -1) {
-                    this.log("Hit! " + reqReg);
-                    data[reqReg] = [];
-                    for (var i = 0; i < regData[region].history.length; i++) {
-                        data[reqReg].push([parseInt(moment(regData[region].history[i].date).add(1, 'days').format("x")), Math.round(parseFloat(regData[region].history[i].weekIncidence))])    
+            var reg = regData[region];
+            this.log("Checking " + reg.name);
+            var historyLength = reg.history.length;
+            this.config.districts.forEach((confReg) => {
+                if (reg.name.indexOf(confReg) > -1) {
+                    this.log("Hit! " + confReg);
+                    data[confReg] = [];
+                    for (var i = 0; i < historyLength; i++) {
+                        data[confReg].push([parseInt(moment(reg.history[i].date).add(1, 'days').format("x")), Math.round(parseFloat(reg.history[i].weekIncidence))])    
                     }
-                }
+                } 
             });
+            self.log(reg.history[historyLength-1]);
+            if (historyLength) this.ranking.push([ reg.name, reg.history[historyLength-1]["weekIncidence"]])
         }
+        this.ranking.sort(function (a,b) {
+            return b[1] - a[1]
+        });
+        this.log(this.ranking);
         this.log(data);
-        this.drawChart(data);   
+        this.updateDom();
+        var self = this;
+        setTimeout(() => {
+            self.updateChart(data);
+        }, 1000);
     },
 
 
@@ -82,18 +101,45 @@ Module.register("MMM-COVID19-Inc",{
         var wrapper = document.createElement("div");
         wrapper.className = "incWrapper";
         wrapper.width = this.config.width;
-        var graph = document.createElement("div");
-        graph.className = "small thin light";
-        graph.id = "incGraph";
-        graph.height = this.config.height + "px";
-        graph.width = this.config.width + "px";
-        graph.style.display = "none";
-        wrapper.appendChild(graph);
+        
+        if (this.config.showGraph) {
+		var graph = document.createElement("div");
+            graph.className = "small thin light";
+	        graph.id = "incGraph";
+            graph.height = this.config.chartHeight + "px";
+	        graph.width = this.config.width + "px";
+            graph.style.display = "none";
+	        wrapper.appendChild(graph);
+        };
+        
         if (this.config.showMap) {
             var incImg = document.createElement('img');
+            incImg.id = "covid-inc-map";
             incImg.style.width = this.config.mapWidth + "px";
             incImg.src = "https://api.corona-zahlen.org/map/districts";
             wrapper.appendChild(incImg);
+        };
+
+        if (this.config.showRanks && this.ranking) {
+            var rankTable = document.createElement('table');
+            for (var i = 0; i < this.config.ranks; i++) {
+                var rank = document.createElement('tr');
+                rank.className= "xsmall";
+                var topEntry = document.createElement('td');
+                topEntry.innerHTML = this.ranking[i][0]
+                var topNr = document.createElement('td');
+                topNr.innerHTML = this.ranking[i][1].toFixed(1);
+                var bottomEntry = document.createElement('td');
+                bottomEntry.innerHTML = this.ranking[this.ranking.length-(i+1)][0]
+                var bottomNr = document.createElement('td');
+                bottomNr.innerHTML = this.ranking[this.ranking.length-(i+1)][1].toFixed(1);
+                rank.appendChild(topEntry);
+                rank.appendChild(topNr);
+                rank.appendChild(bottomEntry);
+                rank.appendChild(bottomNr);
+                rankTable.appendChild(rank);
+            }
+            wrapper.appendChild(rankTable)
         }
         return wrapper;
     },
@@ -106,17 +152,17 @@ Module.register("MMM-COVID19-Inc",{
         }
         return colors;
     },
-        
+
 
     /* Draw chart using highcharts node module
     * For config options visit https://api.highcharts.com/highcharts
     */
-    drawChart: function(data) {
+    updateChart: function(data) {
 
         var graph = document.getElementById("incGraph");
         graph.style.display = "block";
         /*graph.width = this.config.width;
-        graph.height = this.config.height;*/
+        graph.height = this.config.chartHeight;*/
 
         var incData = [];
         
@@ -136,7 +182,7 @@ Module.register("MMM-COVID19-Inc",{
                 type: (this.config.chartType === 'bar') ? 'column' : 'line',
                 backgroundColor: '#000',
                 width: this.config.width,
-                height: this.config.height,
+                height: this.config.chartHeight,
                 plotBackgroundColor: '#000',
                 plotBorderWidth: '0',
                 style: {
@@ -170,7 +216,6 @@ Module.register("MMM-COVID19-Inc",{
                 },
             },
             yAxis: [
-            // RAIN
             {
                 labels: {
                     enabled: this.config.showYAxis,
@@ -220,8 +265,8 @@ Module.register("MMM-COVID19-Inc",{
                     dataLabels: {
                         enabled: true,
                         style: {
-                            color: '#fafafa',
-                            border: 'none',
+                            color: '#222222',
+                            //border: 'none',
                             fontSize: "0.8em",
                         }
                     }
@@ -235,7 +280,7 @@ Module.register("MMM-COVID19-Inc",{
                         inside: true,
                         //y: -10,
                         style: {
-                            color: '#fafafa',
+                            color: '#222222',
                             border: 'none',
                             fontSize: "0.8em",
                         }
