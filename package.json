@@ -1,21 +1,21 @@
 {
-  "name": "mmm-buienalarm",
+  "name": "MMM-COVID19-Inc",
   "version": "1.0.0",
-  "description": "A <a href=\"https://github.com/MichMich/MagicMirror\">MagicMirror</a> module forecasting rain in the Netherlands and western Germany.",
-  "main": "MMM-Buienalarm.js",
+  "description": "A <a href=\"https://github.com/MichMich/MagicMirror\">MagicMirror</a> module to show historical COVID19 incidence rate per german district.",
+  "main": "MMM-COVID19-Inc.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/lavolp3/MMM-Buienalarm.git"
+    "url": "git+https://github.com/lavolp3/MMM-COVID19-Inc.git"
   },
   "author": "Dirk Kovert",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/lavolp3/MMM-Buienalarm/issues"
+    "url": "https://github.com/lavolp3/MMM-COVID19-Inc/issues"
   },
-  "homepage": "https://github.com/lavolp3/MMM-Buienalarm#readme",
+  "homepage": "https://github.com/lavolp3/MMM-COVID19-Inc#readme",
   "dependencies": {
     "highcharts": "^8.2.2"
   }
