@@ -67,18 +67,20 @@ Module.register("MMM-COVID19-Inc",{
         //this.log(regData);
         this.ranking = [];
         var self = this;
+        var regions = Object.keys(regData);
+        var confDistricts = this.config.districts;
         for (region in regData) {
             var reg = regData[region];
             this.log("Checking " + reg.name);
             var historyLength = reg.history.length;
-            this.config.districts.forEach((confReg) => {
-                if (reg.name.indexOf(confReg) > -1) {
+            confDistricts.forEach((confReg) => {
+                if ((reg.name.indexOf(confReg) > -1) || (reg.ags == confReg)) {
                     this.log("Hit! " + confReg);
-                    data[confReg] = [];
+                    data[reg.name] = [];
                     for (var i = 0; i < historyLength; i++) {
-                        data[confReg].push([parseInt(moment(reg.history[i].date).add(1, 'days').format("x")), Math.round(parseFloat(reg.history[i].weekIncidence))])    
+                        data[reg.name].push([parseInt(moment(reg.history[i].date).add(1, 'days').format("x")), Math.round(parseFloat(reg.history[i].weekIncidence))])
                     }
-                } 
+                }
             });
             self.log(reg.history[historyLength-1]);
             if (historyLength) this.ranking.push([ reg.name, reg.history[historyLength-1]["weekIncidence"]])
