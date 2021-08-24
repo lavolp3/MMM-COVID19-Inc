@@ -17,6 +17,6 @@
   },
   "homepage": "https://github.com/lavolp3/MMM-COVID19-Inc#readme",
   "dependencies": {
-    "highcharts": "^8.2.2"
+    "highcharts": "^9.2.2"
   }
 }
